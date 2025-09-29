@@ -9,16 +9,15 @@ Character Model (class)
   -> isFav (boolean)
 
   -> vocation (enhanced enum)
-       -> thumb (string)
        -> title (string)
        -> description (string)
        -> ability (string)
        -> weapon (string)
+       -> image (String)
 
   -> skills (set of type Skill (class))
        -> name (string)
-       -> thumb (string)
-       -> description (string)
+       -> image (string)
        -> vocation (Vocation - associated vocation for skill)
        -> id (int/string?)
 
@@ -31,4 +30,3 @@ Character Model (class)
 
 
 
-  
