@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rpg/models/character.dart';
+import 'package:flutter_rpg/shared/styled_text.dart';
 import 'package:flutter_rpg/theme.dart';
 
 class CharacterCard extends StatelessWidget {
   const CharacterCard(this.character, {super.key});
 
-  final String character;
+  final Character character;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +15,17 @@ class CharacterCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         child: Row(
           children: [
-            Text(character),
+            Image.asset('assets/img/vocations/${character.vocation.image}', width: 80,),
+            SizedBox(width: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StyledHeading(character.name),
+                StyledText(character.vocation.title),
+              ],
+            ),
 
-            // let's put some space between text and arrow 
+            // let's put some space between text and arrow
             Expanded(
               child: SizedBox(),
             ),

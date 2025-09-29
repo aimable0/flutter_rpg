@@ -32,3 +32,31 @@ class Character with Stats {
     skills.add(skill);
   }
 }
+
+// dummy data
+List<Character> characters = [
+  Character(
+    id: '1',
+    name: 'Karake',
+    vocation: Vocation.ninja,
+    slogan: 'ese mama',
+  ),
+  Character(
+    id: '2',
+    name: 'Oly',
+    vocation: Vocation.wizard,
+    slogan: 'ubwo nibyo',
+  ),
+  Character(
+    id: '3',
+    name: 'Joan',
+    vocation: Vocation.raider,
+    slogan: 'designer',
+  ),
+  Character(
+    id: '4',
+    name: 'Nuru',
+    vocation: Vocation.junkie,
+    slogan: 'nyumvira uyu mujama',
+  ),
+];
