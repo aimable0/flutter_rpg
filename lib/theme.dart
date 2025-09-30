@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rpg/shared/styled_text.dart';
 
 class AppColors {
   static Color primaryColor = const Color.fromRGBO(162, 29, 19, 1);
@@ -35,13 +36,13 @@ ThemeData primarytheme = ThemeData(
     ),
     headlineMedium: TextStyle(
       color: AppColors.titleColor,
-      fontSize: 17,
+      fontSize: 16,
       fontWeight: FontWeight.bold,
       letterSpacing: 1,
     ),
     titleMedium: TextStyle(
       color: AppColors.titleColor,
-      fontSize: 20,
+      fontSize: 18,
       letterSpacing: 2,
       fontWeight: FontWeight.bold,
     ),
@@ -50,8 +51,17 @@ ThemeData primarytheme = ThemeData(
   // cardtheme.
   cardTheme: CardThemeData(
     color: AppColors.secondaryColor.withOpacity(0.5),
-    shape: RoundedRectangleBorder(), 
+    shape: RoundedRectangleBorder(),
     shadowColor: Colors.transparent, // not sure what's happening here
     margin: EdgeInsets.only(bottom: 16),
+  ),
+
+  // input data them
+  inputDecorationTheme: InputDecorationTheme(
+    filled: true,
+    fillColor: AppColors.secondaryColor.withOpacity(0.5),
+    border: InputBorder.none,
+    prefixIconColor: AppColors.textColor,
+    labelStyle: TextStyle(color: AppColors.textColor),
   ),
 );
