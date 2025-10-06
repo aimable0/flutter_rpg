@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rpg/models/character.dart';
 import 'package:flutter_rpg/models/vocation.dart';
 import 'package:flutter_rpg/screens/create/vocation_card.dart';
+import 'package:flutter_rpg/screens/home/home.dart';
 import 'package:flutter_rpg/shared/styled_button.dart';
 import 'package:flutter_rpg/shared/styled_text.dart';
 import 'package:flutter_rpg/theme.dart';
@@ -42,11 +43,46 @@ class _CreateState extends State<Create> {
   // handling submit
   void submitHandler() {
     if (_nameController.text.trim().isEmpty) {
-      // show error
+      // show error to the user
+      showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: StyledHeading('Oops Missing Character Name'),
+            content: StyledText('Every characters should have a good name...'),
+            actions: [
+              StyledButton(
+                onPressed: () {
+                  return Navigator.pop(ctx);
+                },
+                child: StyledHeading('x'),
+              ),
+            ],
+            actionsAlignment: MainAxisAlignment.center,
+          );
+        },
+      );
+
       return;
     }
     if (_sloganController.text.trim().isEmpty) {
-      // show error
+      showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: StyledHeading('Missing Character Slogan'),
+            content: StyledText("Remember to add a catchy slogan..."),
+            actions: [
+              StyledButton(
+                onPressed: () {
+                  return Navigator.pop(ctx);
+                },
+                child: StyledHeading('x'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
 
@@ -58,6 +94,8 @@ class _CreateState extends State<Create> {
         vocation: selectedVocation,
       ),
     );
+
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) => Home()));
   }
 
   @override
@@ -135,9 +173,7 @@ class _CreateState extends State<Create> {
 
               Center(child: Icon(Icons.code, color: AppColors.primaryColor)),
               Center(child: StyledHeading('You are good to go!')),
-              Center(
-                child: StyledText('Enjoy your character...'),
-              ),
+              Center(child: StyledText('Enjoy your character...')),
               SizedBox(height: 20),
               Center(
                 child: StyledButton(

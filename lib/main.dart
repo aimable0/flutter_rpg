@@ -5,21 +5,21 @@ import 'package:flutter_rpg/shared/styled_text.dart';
 import 'package:flutter_rpg/theme.dart';
 
 void main() {
-  runApp(MaterialApp(theme: primarytheme, home: Create()));
+  runApp(MaterialApp(theme: primarytheme, home: Home()));
 }
 
-class Sandbox extends StatelessWidget {
-  const Sandbox({super.key});
+// class Sandbox extends StatelessWidget {
+//   const Sandbox({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: StyledHeading('Sandbox'),
-        backgroundColor: const Color.fromARGB(255, 68, 68, 68),
-      ),
-      body: Text('Sandbox'),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: StyledHeading('Sandbox'),
+//         backgroundColor: const Color.fromARGB(255, 68, 68, 68),
+//       ),
+//       body: Text('Sandbox'),
 
-    );
-  }
-}
+//     );
+//   }
+// }
