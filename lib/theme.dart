@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rpg/shared/styled_text.dart';
 
 class AppColors {
   static Color primaryColor = const Color.fromRGBO(162, 29, 19, 1);
@@ -12,14 +11,17 @@ class AppColors {
   static Color highlightColor = const Color.fromRGBO(212, 172, 13, 1);
 }
 
-ThemeData primarytheme = ThemeData(
-  // seed color
-  colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+ThemeData primaryTheme = ThemeData(
 
-  // scaffold theme (body)
+  // seed color theme
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: AppColors.primaryColor,
+  ),
+
+  // scaffold color
   scaffoldBackgroundColor: AppColors.secondaryAccent,
 
-  // appbar theme
+  // app bar theme colors
   appBarTheme: AppBarTheme(
     backgroundColor: AppColors.secondaryColor,
     foregroundColor: AppColors.textColor,
@@ -27,7 +29,7 @@ ThemeData primarytheme = ThemeData(
     centerTitle: true,
   ),
 
-  // texttheme.
+  // text theme
   textTheme: TextTheme(
     bodyMedium: TextStyle(
       color: AppColors.textColor,
@@ -43,31 +45,33 @@ ThemeData primarytheme = ThemeData(
     titleMedium: TextStyle(
       color: AppColors.titleColor,
       fontSize: 18,
-      letterSpacing: 2,
       fontWeight: FontWeight.bold,
+      letterSpacing: 2,
     ),
   ),
 
-  // cardtheme.
+  // card theme
   cardTheme: CardThemeData(
     color: AppColors.secondaryColor.withOpacity(0.5),
-    shape: RoundedRectangleBorder(),
-    shadowColor: Colors.transparent, // not sure what's happening here
-    margin: EdgeInsets.only(bottom: 16),
+    surfaceTintColor: Colors.transparent,
+    shape: const RoundedRectangleBorder(),
+    shadowColor: Colors.transparent,
+    margin: const EdgeInsets.only(bottom: 16),
   ),
 
-  // input data them
+  // input decoration theme
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: AppColors.secondaryColor.withOpacity(0.5),
     border: InputBorder.none,
-    prefixIconColor: AppColors.textColor,
     labelStyle: TextStyle(color: AppColors.textColor),
+    prefixIconColor: AppColors.textColor,
   ),
 
   // dialog theme
   dialogTheme: DialogThemeData(
     backgroundColor: AppColors.secondaryAccent,
-    surfaceTintColor: Colors.transparent,
+    surfaceTintColor: AppColors.secondaryAccent,
   ),
+
 );

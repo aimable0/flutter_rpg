@@ -6,8 +6,8 @@ class Skill {
   final String image;
   final Vocation vocation;
 
-  const Skill({
-    required this.id,
+  Skill({
+    required this.id, 
     required this.name,
     required this.image,
     required this.vocation,

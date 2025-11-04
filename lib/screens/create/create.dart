@@ -19,20 +19,20 @@ class Create extends StatefulWidget {
 }
 
 class _CreateState extends State<Create> {
-  // let's add some controllers to track the user's input
+
   final _nameController = TextEditingController();
   final _sloganController = TextEditingController();
 
   @override
   void dispose() {
-    // throw it; if we don't need it (like if we are not on that page)
+    // clean up the controller when the widget is disposed
     _nameController.dispose();
     _sloganController.dispose();
     super.dispose();
   }
 
-  // handling selected vocation
-  Vocation selectedVocation = Vocation.junkie; // default vocation
+  // handling vocation selection
+  Vocation selectedVocation = Vocation.junkie;
 
   void updateVocation(Vocation vocation) {
     setState(() {
@@ -40,147 +40,163 @@ class _CreateState extends State<Create> {
     });
   }
 
-  // handling submit
-  void submitHandler() {
-    if (_nameController.text.trim().isEmpty) {
-      // show error to the user
-      showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            title: StyledHeading('Oops Missing Character Name'),
-            content: StyledText('Every characters should have a good name...'),
-            actions: [
-              StyledButton(
-                onPressed: () {
-                  return Navigator.pop(ctx);
-                },
-                child: StyledHeading('x'),
-              ),
-            ],
-            actionsAlignment: MainAxisAlignment.center,
-          );
-        },
-      );
+  // submit handler
+  void handleSubmit() {
+    if (_nameController.text.trim().isEmpty){
+
+      showDialog(context: context, builder: (ctx) {
+        return AlertDialog(
+          title: const StyledHeading('Missing Character Name'),
+          content: const StyledText('Every good RPG character needs a great name...'),
+          actions: [
+            StyledButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const StyledHeading('Close'),
+            ),
+          ],
+          actionsAlignment: MainAxisAlignment.center,
+        );
+      });
 
       return;
     }
-    if (_sloganController.text.trim().isEmpty) {
-      showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            title: StyledHeading('Missing Character Slogan'),
-            content: StyledText("Remember to add a catchy slogan..."),
-            actions: [
-              StyledButton(
-                onPressed: () {
-                  return Navigator.pop(ctx);
-                },
-                child: StyledHeading('x'),
-              ),
-            ],
-          );
-        },
-      );
+    if (_sloganController.text.trim().isEmpty){
+
+      showDialog(context: context, builder: (ctx) {
+        return AlertDialog(
+          title: const StyledHeading('Missing Character Slogan'),
+          content: const StyledText('Remember to add a catchy saying...'),
+          actions: [
+            StyledButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const StyledHeading('Close'),
+            ),
+          ],
+          actionsAlignment: MainAxisAlignment.center,
+        );
+      });
+
       return;
     }
 
-    characters.add(
-      Character(
-        id: uuid.v4(),
-        name: _nameController.text.trim(),
-        slogan: _sloganController.text.trim(),
-        vocation: selectedVocation,
-      ),
-    );
+    characters.add(Character(
+      name: _nameController.text.trim(),
+      slogan: _sloganController.text.trim(),
+      vocation: selectedVocation,
+      id: uuid.v4(),
+    ));
 
-    Navigator.push(context, MaterialPageRoute(builder: (ctx) => Home()));
+    Navigator.push(context, MaterialPageRoute(
+      builder: (ctx) => const Home(),
+    ));
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: StyledTitle('character creation'),
-        centerTitle: true,
+        title: const StyledTitle('Character Creation'),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Center(child: Icon(Icons.code, color: AppColors.primaryColor)),
-              const Center(child: StyledHeading('welcome, new player.')),
+
+              // welcome message
+              Center(
+                child: Icon(Icons.code, color: AppColors.primaryColor),
+              ),
+              const Center(
+                child: StyledHeading('Welcome, new player.'),
+              ),
               const Center(
                 child: StyledText('Create a name & slogan for your character.'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 30),
 
-              // input
+              // input for name & slogan
               TextField(
                 controller: _nameController,
+                cursorColor: AppColors.textColor,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.person_2),
+                  label: StyledText('Character name'),
+                ),
                 style: GoogleFonts.kanit(
                   textStyle: Theme.of(context).textTheme.bodyMedium,
                 ),
-                cursorColor: AppColors.textColor,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  label: Text('Character name'),
-                ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
                 controller: _sloganController,
                 cursorColor: AppColors.textColor,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.chat),
+                  label: StyledText('Character slogan'),
+                ),
                 style: GoogleFonts.kanit(
                   textStyle: Theme.of(context).textTheme.bodyMedium,
                 ),
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.chat),
-                  label: Text("Character slogan"),
-                ),
               ),
-              SizedBox(height: 50),
-              Center(child: Icon(Icons.code, color: AppColors.primaryColor)),
-              Center(child: StyledHeading('chose a vocation')),
+              const SizedBox(height: 30),
+
+              // select vocation title
               Center(
-                child: StyledText('This determines your available skills.'),
+                child: Icon(Icons.code, color: AppColors.primaryColor),
               ),
+              const Center(
+                child: StyledHeading('Choose a Vocation.')
+              ),
+              const Center(
+                child: StyledText('This determines your available skills.')
+              ),
+              const SizedBox(height:30),
 
-              SizedBox(height: 20),
-              // vocations here.
+              // vocation cards
               VocationCard(
-                selected: (selectedVocation == Vocation.junkie),
                 vocation: Vocation.junkie,
-                onTapFunc: updateVocation,
+                onTap: updateVocation,
+                selected: selectedVocation == Vocation.junkie,
               ),
               VocationCard(
-                selected: (selectedVocation == Vocation.wizard),
-                vocation: Vocation.wizard,
-                onTapFunc: updateVocation,
-              ),
-              VocationCard(
-                selected: (selectedVocation == Vocation.raider),
-                vocation: Vocation.raider,
-                onTapFunc: updateVocation,
-              ),
-              VocationCard(
-                selected: (selectedVocation == Vocation.ninja),
                 vocation: Vocation.ninja,
-                onTapFunc: updateVocation,
+                onTap: updateVocation,
+                selected: selectedVocation == Vocation.ninja,
+              ),
+              VocationCard(
+                vocation: Vocation.wizard,
+                onTap: updateVocation,
+                selected: selectedVocation == Vocation.wizard,
+              ),
+              VocationCard(
+                vocation: Vocation.raider,
+                onTap: updateVocation,
+                selected: selectedVocation == Vocation.raider,
               ),
 
-              Center(child: Icon(Icons.code, color: AppColors.primaryColor)),
-              Center(child: StyledHeading('You are good to go!')),
-              Center(child: StyledText('Enjoy your character...')),
-              SizedBox(height: 20),
+              // good luck message
+              Center(
+                child: Icon(Icons.code, color: AppColors.primaryColor)
+              ),
+              const Center(
+                child: StyledHeading('Good Luck.')),
+              const Center(
+                child: StyledText('And enjoy the journey ahead...'),
+              ),
+              const SizedBox(height: 30),
+
+              // submit button
               Center(
                 child: StyledButton(
-                  onPressed: submitHandler,
-                  child: StyledHeading("Create character"),
+                  onPressed: handleSubmit,
+                  child: const StyledHeading('Create Character'),
                 ),
               ),
+
             ],
           ),
         ),

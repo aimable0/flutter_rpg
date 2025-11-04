@@ -36,6 +36,6 @@ class StyledTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text.toUpperCase(), style: GoogleFonts.kanit(
       textStyle: Theme.of(context).textTheme.titleMedium
-    ),);
+    ));
   }
 }
