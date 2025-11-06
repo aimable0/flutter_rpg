@@ -1,0 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_rpg/models/character.dart';
+
+class FirestoreService {
+  static final ref = FirebaseFirestore.instance
+      .collection('characters')
+      .withConverter(
+        fromFirestore: Character.fromFirestore,
+        toFirestore: (Character c, _) => c.toFirestore(),
+      );
+
+  // add a new character
+  static Future<void> addCharacter(Character character) async {
+    await ref.doc(character.id).set(character);
+    // note: without converter we would have to manually change 'character' to fit expected format.
+    // we are using doc() instead of add() because add would give us a new id which we dont want
+  }
+
+  // get characters once
+  static Future<QuerySnapshot<Character>> getCharactersOnce() {
+    return ref.get(); // returns us with a list of documents in the collection
+  }
+
+  // update a character
+  static Future<void> updateCharacter(Character character) async {
+    await ref.doc(character.id).update({
+      "stats": character.statsAsMap,
+      "points": character.points,
+      "skills": character.skills.map((e) => e.id).toList(),
+      "isFav": character.isFav,
+    });
+  }
+
+  // delete a character
+}

@@ -12,7 +12,7 @@ mixin Stats {
     {'title': 'health', 'value': _health.toString()},
     {'title': 'attack', 'value': _attack.toString()},
     {'title': 'defense', 'value': _defense.toString()},
-    {'title': 'skill', 'value': _skill.toString()}
+    {'title': 'skill', 'value': _skill.toString()},
   ];
 
   Map<String, int> get statsAsMap => {
@@ -34,7 +34,7 @@ mixin Stats {
       if (stat == 'defense') {
         _defense++;
       }
-      if (stat =='skill') {
+      if (stat == 'skill') {
         _skill++;
       }
       _points--;
@@ -58,5 +58,14 @@ mixin Stats {
       _skill--;
       _points++;
     }
+  }
+
+  // function to help us set stats on character from database
+  void setStats({required int points, required Map<String, dynamic> stats}) {
+    _points = points;
+    _health = stats['health'];
+    _attack = stats['attack'];
+    _defense = stats['defense'];
+    _skill = stats['skill'];
   }
 }
